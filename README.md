@@ -19,29 +19,60 @@ Feito pro meu docim que quer aprender backend + ML que ela já sabe. Interface s
 
 ```
 scout-ai/
-├── web/          → Interface Next.js (TypeScript)
-├── api/          → Backend FastAPI (Python)
-├── ml/           → Notebooks e modelos de ML
-├── db/           → Migrações Alembic
-└── .claude/      → Specs e comandos do Claude Code
+├── api/              → Backend FastAPI (Python)
+├── ml/               → Modelos de ML (a implementar)
+├── web/              → Interface Next.js (TypeScript)
+├── db/               → Schema SQL (init.sql)
+├── Dockerfile        → Imagem da API
+├── docker-compose.yml
+└── requirements.txt  → Dependências Python (api + ml compartilham o mesmo venv)
 ```
 
-Cada pasta tem seu próprio `README.md` explicando o que vai dentro dela.
+---
+
+## Variáveis de ambiente
+
+Copie `.env.example` para `.env` na raiz e ajuste se necessário:
+
+```bash
+cp .env.example .env
+```
+
+| Variável               | Usado em  | Valor padrão                                    |
+| ---------------------- | --------- | ----------------------------------------------- |
+| `DATABASE_URL`         | `api/`    | `postgresql://scout:scout@localhost:5432/scoutai` |
+| `NEXT_PUBLIC_API_URL`  | `web/`    | `http://localhost:8000`                         |
 
 ---
 
 ## Como rodar localmente
 
+Cada parte roda em um terminal separado.
+
+**Terminal 1 — banco de dados**
 ```bash
-# 1. Sobe o banco de dados
-docker compose up -d
-
-# 2. Roda a API
-cd api && uvicorn main:app --reload
-
-# 3. Roda o frontend
-cd web && npm run dev
+docker compose up db -d
 ```
+
+**Terminal 2 — API** (rodar da raiz do projeto)
+```bash
+python -m venv .venv
+source .venv/bin/activate        # Windows: .venv\Scripts\activate
+pip install -r requirements.txt
+uvicorn api.main:app --reload
+```
+
+A API fica disponível em `http://localhost:8000`.
+Documentação automática: `http://localhost:8000/docs`
+
+**Terminal 3 — frontend**
+```bash
+cd web
+npm install
+npm run dev
+```
+
+O frontend fica em `http://localhost:3000`.
 
 ---
 
