@@ -1,8 +1,8 @@
-# ⚽ Scout AI: Analisador de Desempenho de Jogadoras
+# ⚽ Scout AI: Analisador de Desempenho de Jogadores (pode ser do cruzeiro...)
 
 Projeto de aprendizado que combina backend Python, banco de dados relacional e machine learning usando futebol como domínio.
 
-Feito pro meu docim que quer aprender backend + ML que ela já sabe. Interface simple em Next.js para visualizar tudo.
+Feito pro meu docim que quer aprender backend + ML que ela já sabe. Interface simples em Next.js para visualizar tudo.
 
 ---
 
